@@ -21,5 +21,6 @@ jobs:
       - name: Check the output coverage
         run: |
           echo "Coverage Report - ${{ steps.coverageComment.outputs.coverage }}"
+          echo "Coverage Detail Report - ${{ steps.coverageComment.outputs.coverage_detail }}"
           echo "Coverage Color - ${{ steps.coverageComment.outputs.color }}"
           echo "Coverage Html - ${{ steps.coverageComment.outputs.coverageHtml }}"
