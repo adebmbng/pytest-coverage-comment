@@ -28,7 +28,7 @@ const getCoverageReport = (options) => {
       const content = getContentFile(covFilePath);
       const coverage = getTotalCoverage(content);
       const coverage_detail = getTotalCoverageDetail(content);
-      console.log(coverage_detail);
+      core.info(coverage_detail);
       const isValid = isValidCoverageContent(content);
 
       if (content && !isValid) {
@@ -184,7 +184,7 @@ const getTotalCoverage = (data) => {
 
 const getTotalCoverageDetail = (data) => {
   const total = getTotal(data);
-  console.log(total);
+  core.info(total);
 
   return total ? (100 - ((total.miss / total.stmts) * 100)) : 0.0;
 };
