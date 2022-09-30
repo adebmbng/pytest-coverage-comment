@@ -89,7 +89,7 @@ const main = async () => {
   let report = options.covXmlFile
     ? getCoverageXmlReport(options)
     : getCoverageReport(options);
-  const { coverage, color, html, warnings } = report;
+  const { coverage, color, html, warnings, coverage_detail } = report;
   const summaryReport = getSummaryReport(options);
 
   if (summaryReport && summaryReport.html) {
@@ -149,6 +149,7 @@ const main = async () => {
     core.info(`warnings: ${warnings}`);
 
     core.setOutput('coverage', coverage);
+    core.setOutput('coverage_detail', coverage_detail);
     core.setOutput('color', color);
     core.setOutput('warnings', warnings);
     core.endGroup();
@@ -240,7 +241,7 @@ const getChangedFiles = async (options) => {
       default:
         core.setFailed(
           `This action only supports pull requests and pushes, ${eventName} events are not supported. ` +
-            "Please submit an issue on this action's GitHub repo if you believe this in correct."
+          "Please submit an issue on this action's GitHub repo if you believe this in correct."
         );
     }
 
@@ -271,7 +272,7 @@ const getChangedFiles = async (options) => {
     if (response.status !== 200) {
       core.setFailed(
         `The GitHub API for comparing the base and head commits for this ${eventName} event returned ${response.status}, expected 200. ` +
-          "Please submit an issue on this action's GitHub repo."
+        "Please submit an issue on this action's GitHub repo."
       );
     }
 

@@ -91,6 +91,8 @@ inputs:
     required: false
 
 outputs:
+  coverage_detail:
+    description: 'more detail value of coverage'
   coverage:
     description: 'value indicating the coverage percentage of your report based on pytest, example 30%'
   color:
