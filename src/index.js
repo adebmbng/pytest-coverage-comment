@@ -149,7 +149,7 @@ const main = async () => {
     core.info(`warnings: ${warnings}`);
 
     core.setOutput('coverage', coverage);
-    core.setOutput('coverage_detail', coverage_detail);
+    core.setOutput('coverage_detail', `${coverage_detail.toFixed(3)}%`);
     core.setOutput('color', color);
     core.setOutput('warnings', warnings);
     core.endGroup();

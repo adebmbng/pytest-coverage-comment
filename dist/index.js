@@ -16990,7 +16990,6 @@ const getCoverageReport = (options) => {
       const content = getContentFile(covFilePath);
       const coverage = getTotalCoverage(content);
       const coverage_detail = getTotalCoverageDetail(content);
-      core.info(coverage_detail);
       const isValid = isValidCoverageContent(content);
 
       if (content && !isValid) {
@@ -17941,7 +17940,7 @@ const main = async () => {
     core.info(`warnings: ${warnings}`);
 
     core.setOutput('coverage', coverage);
-    core.setOutput('coverage_detail', coverage_detail);
+    core.setOutput('coverage_detail', `${coverage_detail.toFixed(3)}%`);
     core.setOutput('color', color);
     core.setOutput('warnings', warnings);
     core.endGroup();

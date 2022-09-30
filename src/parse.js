@@ -31,7 +31,6 @@ const getCoverageReport = (options) => {
       const content = getContentFile(covFilePath);
       const coverage = getTotalCoverage(content);
       const coverage_detail = getTotalCoverageDetail(content);
-      core.info(coverage_detail);
       const isValid = isValidCoverageContent(content);
 
       if (content && !isValid) {
