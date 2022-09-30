@@ -184,7 +184,7 @@ const getTotalCoverage = (data) => {
 const getTotalCoverageDetail = (data) => {
   const total = getTotal(data);
 
-  return total ? 100 - ((total.miss / total.cover) * 100) : 0.0;
+  return total ? 100 - ((total.miss / total.stmts) * 100) : 0.0;
 };
 
 // convert all data to html output
