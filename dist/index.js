@@ -16981,11 +16981,16 @@ const isValidCoverageContent = (data) => {
 const getCoverageReport = (options) => {
   const { covFile, covXmlFile } = options;
 
+  core.info('dbm: getCoverageReport');
+  core.info(covFile);
+
   if (!covXmlFile) {
     try {
       const covFilePath = getPathToFile(covFile);
       const content = getContentFile(covFilePath);
       const coverage = getTotalCoverage(content);
+      const coverage_detail = getTotalCoverageDetail(content);
+      core.info(coverage_detail);
       const isValid = isValidCoverageContent(content);
 
       if (content && !isValid) {
@@ -16999,14 +17004,20 @@ const getCoverageReport = (options) => {
         const warnings = getWarnings(content);
         const color = getCoverageColor(total ? total.cover : '0');
 
-        return { html, coverage, color, warnings };
+        return { html, coverage, color, warnings, coverage_detail };
       }
     } catch (error) {
       core.error(`Generating coverage report. ${error.message}`);
     }
   }
 
-  return { html: '', coverage: '0', color: 'red', warnings: 0 };
+  return {
+    html: '',
+    coverage: '0',
+    color: 'red',
+    warnings: 0,
+    coverage_detail: 0.0,
+  };
 };
 
 // get actual lines from coverage-file
@@ -17137,6 +17148,13 @@ const getTotalCoverage = (data) => {
   const total = getTotal(data);
 
   return total ? total.cover : '0';
+};
+
+const getTotalCoverageDetail = (data) => {
+  const total = getTotal(data);
+  core.info(total);
+
+  return total ? 100 - (total.miss / total.stmts) * 100 : 0.0;
 };
 
 // convert all data to html output
@@ -17863,7 +17881,7 @@ const main = async () => {
   let report = options.covXmlFile
     ? getCoverageXmlReport(options)
     : getCoverageReport(options);
-  const { coverage, color, html, warnings } = report;
+  const { coverage, color, html, warnings, coverage_detail } = report;
   const summaryReport = getSummaryReport(options);
 
   if (summaryReport && summaryReport.html) {
@@ -17923,6 +17941,7 @@ const main = async () => {
     core.info(`warnings: ${warnings}`);
 
     core.setOutput('coverage', coverage);
+    core.setOutput('coverage_detail', coverage_detail);
     core.setOutput('color', color);
     core.setOutput('warnings', warnings);
     core.endGroup();

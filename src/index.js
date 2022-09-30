@@ -241,7 +241,7 @@ const getChangedFiles = async (options) => {
       default:
         core.setFailed(
           `This action only supports pull requests and pushes, ${eventName} events are not supported. ` +
-          "Please submit an issue on this action's GitHub repo if you believe this in correct."
+            "Please submit an issue on this action's GitHub repo if you believe this in correct."
         );
     }
 
@@ -272,7 +272,7 @@ const getChangedFiles = async (options) => {
     if (response.status !== 200) {
       core.setFailed(
         `The GitHub API for comparing the base and head commits for this ${eventName} event returned ${response.status}, expected 200. ` +
-        "Please submit an issue on this action's GitHub repo."
+          "Please submit an issue on this action's GitHub repo."
       );
     }
 

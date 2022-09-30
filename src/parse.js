@@ -22,8 +22,8 @@ const isValidCoverageContent = (data) => {
 const getCoverageReport = (options) => {
   const { covFile, covXmlFile } = options;
 
-  core.info('dbm: getCoverageReport')
-  core.info(covFile)
+  core.info('dbm: getCoverageReport');
+  core.info(covFile);
 
   if (!covXmlFile) {
     try {
@@ -52,7 +52,13 @@ const getCoverageReport = (options) => {
     }
   }
 
-  return { html: '', coverage: '0', color: 'red', warnings: 0, coverage_detail: 0.0 };
+  return {
+    html: '',
+    coverage: '0',
+    color: 'red',
+    warnings: 0,
+    coverage_detail: 0.0,
+  };
 };
 
 // get actual lines from coverage-file
@@ -121,7 +127,7 @@ const parseOneLine = (line) => {
   const missing = isFullCoverage
     ? null
     : parsedLine[parsedLine.length - 1] &&
-    parsedLine[parsedLine.length - 1].split(', ');
+      parsedLine[parsedLine.length - 1].split(', ');
 
   return {
     name: parsedLine[0],
@@ -189,7 +195,7 @@ const getTotalCoverageDetail = (data) => {
   const total = getTotal(data);
   core.info(total);
 
-  return total ? (100 - ((total.miss / total.stmts) * 100)) : 0.0;
+  return total ? 100 - (total.miss / total.stmts) * 100 : 0.0;
 };
 
 // convert all data to html output
