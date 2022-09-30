@@ -22,6 +22,9 @@ const isValidCoverageContent = (data) => {
 const getCoverageReport = (options) => {
   const { covFile, covXmlFile } = options;
 
+  core.info('dbm: getCoverageReport')
+  core.info(covFile)
+
   if (!covXmlFile) {
     try {
       const covFilePath = getPathToFile(covFile);
